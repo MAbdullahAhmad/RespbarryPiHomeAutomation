@@ -5,8 +5,8 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # Define GPIO pins
-PIR_PIN = 17  # GPIO pin for PIR sensor
-LED_PIN = 18  # GPIO pin for LED
+PIR_PIN = 16  # GPIO pin for PIR sensor
+LED_PIN = 17  # GPIO pin for LED
 
 # Set up GPIO pins
 GPIO.setup(PIR_PIN, GPIO.IN)
