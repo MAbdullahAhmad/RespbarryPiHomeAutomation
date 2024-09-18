@@ -11,7 +11,7 @@ LDR_PIN = 16
 
 
 # Server configuration
-SERVER_HOST = f'http://{get_ip()}/sync' or 'http://127.0.0.1:8000/sync'
+SERVER_HOST = f'http://{get_ip()}:8000/sync' or 'http://127.0.0.1:8000/sync'
 
 # Motion Detection constants
 DETECTION_COUNT_THRESHOLD = 3
