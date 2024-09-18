@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {make_url} from '../config.js';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/login', {
+            const response = await axios.post(make_url('/login'), {
                 username,
                 password
             });

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const Panel = () => {
     const [devices, setDevices] = useState([]);
-
     useEffect(() => {
         const fetchDevices = async () => {
             try {
