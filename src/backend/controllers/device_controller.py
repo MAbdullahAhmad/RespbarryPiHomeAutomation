@@ -6,12 +6,14 @@ from config.database import db
 from datetime import datetime
 
 def get_device_modes():
+    DEFAULT_MODE_LABEL = 'off'
+
     devices = Device.query.all()
     data = []
     for device in devices:
         modes = DeviceModeOption.query.filter_by(device_id=device.id).all()
         status = DeviceStatus.query.filter_by(device_id=device.id).first()
-        mode_label = DeviceModeOption.query.filter_by(id=status.mode_id).first().label if status else None
+        mode_label = DeviceModeOption.query.filter_by(id=status.mode_id).first().label if status else DEFAULT_MODE_LABEL
         device_data = {
             'label': device.label,
             'name': device.name,
