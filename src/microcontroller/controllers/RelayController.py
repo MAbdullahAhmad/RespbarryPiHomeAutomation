@@ -12,7 +12,7 @@ class RelayController:
         if device in RELAY_PINS:
             # Check if the state is already ON, if not, change it and log
             if self.device_states[device] != 'ON':
-                GPIO.output(RELAY_PINS[device], GPIO.HIGH)
+                GPIO.output(RELAY_PINS[device], GPIO.LOW)
                 self.device_states[device] = 'ON'
                 log_info(f"Relay for {device} ON")
 
@@ -20,6 +20,6 @@ class RelayController:
         if device in RELAY_PINS:
             # Check if the state is already OFF, if not, change it and log
             if self.device_states[device] != 'OFF':
-                GPIO.output(RELAY_PINS[device], GPIO.LOW)
+                GPIO.output(RELAY_PINS[device], GPIO.HIGH)
                 self.device_states[device] = 'OFF'
                 log_info(f"Relay for {device} OFF")
