@@ -15,12 +15,20 @@ const Login = () => {
                 username,
                 password
             });
-            document.cookie = `access_token=${response.data.access_token};path=/`;
-            navigate('/panel');
+            console.log(response)
+            const token = response.data.access_token;
+            if (token) {
+                document.cookie = `access_token=${token};path=/`;
+                navigate('/panel');
+            } else {
+                alert('No access token received!');
+            }
         } catch (error) {
             alert('Login failed!');
+            console.error('Error during login:', error);
         }
     };
+    
 
     return (
         <div>

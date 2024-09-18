@@ -1,19 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { make_url } from '../config';
+
+// Function to get the cookie value by name
+const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;  // Return null if the token is not found
+};
 
 const Panel = () => {
     const [devices, setDevices] = useState([]);
+
     useEffect(() => {
         const fetchDevices = async () => {
             try {
-                const response = await axios.get('/get_devices', {
+                const accessToken = getCookie('access_token');
+                console.log("token",accessToken) // Extract the access token from cookie
+                if (!accessToken) {
+                    throw new Error('No access token found. Please log in again.');
+                }
+
+                const response = await axios.get(make_url('/get_devices'), {
                     headers: {
-                        'Authorization': `Bearer ${document.cookie.replace('access_token=', '')}`
+                        'Authorization': `Bearer ${accessToken}`
                     }
                 });
                 setDevices(response.data);
             } catch (error) {
-                console.error('Error fetching devices', error);
+                console.error('Error fetching devices:', error);
+                if (error.message.includes('No access token')) {
+                    alert('Authentication error. Please log in again.');
+                    // Optionally, redirect the user to the login page
+                    // window.location.href = '/login';
+                }
             }
         };
 
@@ -22,17 +43,23 @@ const Panel = () => {
 
     const handleModeChange = async (deviceLabel, modeLabel) => {
         try {
-            await axios.post('/set_device', {
+            const accessToken = getCookie('access_token'); // Extract the access token for each request
+            if (!accessToken) {
+                throw new Error('No access token found. Please log in again.');
+            }
+
+            await axios.post(make_url('/set_device'), {
                 device_label: deviceLabel,
                 mode_label: modeLabel
             }, {
                 headers: {
-                    'Authorization': `Bearer ${document.cookie.replace('access_token=', '')}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
             alert('Mode changed successfully');
         } catch (error) {
             alert('Failed to change mode');
+            console.error('Error changing mode:', error);
         }
     };
 
