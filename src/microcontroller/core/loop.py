@@ -1,6 +1,6 @@
 # core/loop.py
 import time
-from controllers.PIRController import PIRController, motion_detected
+from controllers.PIRController import PIRController
 from controllers.RelayController import RelayController
 from controllers.APIController import APIController
 
@@ -11,7 +11,6 @@ api_controller = APIController()
 
 # Loop
 def run_loop():
-
     # Fetch device modes from the Flask API
     device_modes = api_controller.fetch_device_modes()
 
@@ -32,8 +31,8 @@ def run_loop():
 
             # Mode = Motion
             elif mode == 'motion':
-                if motion_detected: relay_controller.turn_on(device)
-                else:               relay_controller.turn_off(device)
+                if pir_controller.motion_detected: relay_controller.turn_on(device)
+                else:                              relay_controller.turn_off(device)
 
 
     
