@@ -1,6 +1,6 @@
 import time
 import RPi.GPIO as GPIO
-from config.settings import PIR_PIN, DETECTION_COUNT_THRESHOLD, DETECTION_ON_WAIT
+from config.settings import PIR_PIN, DETECTION_COUNT_THRESHOLD, DETECTION_ON_WAIT, DEBUG
 from lib.logs import log_info
 
 motion_detected = 0  # Global motion detection state
@@ -15,8 +15,11 @@ class PIRController:
     def detect_motion(self):
         global motion_detected, current_count
 
+        pir_read = GPIO.input(PIR_PIN)
+        if DEBUG: log_info(f"PIR = {pir_read}")
+
         # If device has motion detected
-        if GPIO.input(PIR_PIN):
+        if pir_read:
             if self.current_detected <= DETECTION_COUNT_THRESHOLD:
                 self.current_detected += 1
 

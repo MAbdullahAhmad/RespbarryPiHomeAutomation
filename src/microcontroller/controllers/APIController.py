@@ -1,6 +1,6 @@
 # controllers/APIController.py
 import requests
-from config.settings import SERVER_HOST
+from config.settings import SERVER_HOST, DEBUG
 from lib.logs import log_info, log_error
 
 class APIController:
@@ -8,7 +8,7 @@ class APIController:
         try:
             response = requests.get(SERVER_HOST)
             if response.status_code == 200:
-                log_info("Successfully fetched device modes.")
+                if DEBUG: log_info("Successfully fetched device modes.")
 
                 devices = response.json()
                 device_modes = {device['label']: device['status'] for device in devices}
