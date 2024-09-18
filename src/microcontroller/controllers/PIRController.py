@@ -3,6 +3,8 @@ import RPi.GPIO as GPIO
 from config.settings import PIR_PIN, DETECTION_COUNT_THRESHOLD, DETECTION_ON_WAIT, DEBUG
 from lib.logs import log_info
 
+DEBUG_PIR = True
+
 motion_detected = 0  # Global motion detection state
 current_count = 0    # To keep track of current detection counts
 
@@ -20,13 +22,21 @@ class PIRController:
 
         # If device has motion detected
         if pir_read:
+
+            if DEBUG_PIR: print("DEBUG_PIR_BP1", self.current_detected, self.current_detected <= DETECTION_COUNT_THRESHOLD)
+
             if self.current_detected <= DETECTION_COUNT_THRESHOLD:
+
                 self.current_detected += 1
 
                 # If detected 3 times constantly
+                if DEBUG_PIR: print("DEBUG_PIR_BP2", self.current_detected, self.current_detected >= DETECTION_COUNT_THRESHOLD)
+                
                 if self.current_detected >= DETECTION_COUNT_THRESHOLD:
-
+        
                     # Update Motion detected
+                    if DEBUG_PIR: print("DEBUG_PIR_BP3", not motion_detected)
+                    
                     if not motion_detected:
                         motion_detected = 1
                         log_info("Motion detected")
