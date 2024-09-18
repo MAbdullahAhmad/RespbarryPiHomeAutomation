@@ -4,6 +4,8 @@ from flask_cors import CORS
 from routes.routes import init_routes
 from config.database import db
 
+from util.get_ip import get_ip
+
 # Initialize the Flask app
 app = Flask(__name__)
 
@@ -22,4 +24,4 @@ jwt = JWTManager(app)
 init_routes(app)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8000, host=get_ip())
