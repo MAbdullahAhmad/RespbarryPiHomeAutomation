@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
-from config.settings import LDR_PIN, DARKNESS_THRESHOLD
+from config.settings import LDR_PIN
 from lib.logs import log_info
 
-DEBUG_LDR = True
+DEBUG_LDR = False
 
 class LDRController:
     ldr_value = 0
@@ -16,4 +16,4 @@ class LDRController:
         return self.ldr_value
     
     def is_dark(self):
-        return self.ldr_value < DARKNESS_THRESHOLD
+        return bool(self.ldr_value)

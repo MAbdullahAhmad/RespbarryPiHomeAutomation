@@ -17,8 +17,5 @@ SERVER_HOST = f'http://{get_ip()}:8000/sync' or 'http://127.0.0.1:8000/sync'
 DETECTION_COUNT_THRESHOLD = 3
 DETECTION_ON_WAIT = 10
 
-# Light Detection constants
-DARKNESS_THRESHOLD = 300
-
 # Debug Mode
 DEBUG = False
