@@ -7,9 +7,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # Initialize the Flask app and database
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3310/pi_home_automation'
+
+# Load database credentials from environment variables
+DB_USERNAME = 'root'
+DB_PASSWORD = ''
+DB_HOST = '127.0.0.1'
+DB_PORT = 3310
+DB_NAME = 'pi_home_automation'
+
+# Configure the SQLAlchemy part of the app instance
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f'mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = 'super-secret-key'  # Change this!
+
+# Configure the JWT secret key
+app.config['JWT_SECRET_KEY'] = '67b33da88dcfd5298f42cd470b4d3deb'  # Change this!
 
 
 db = SQLAlchemy(app)
