@@ -1,13 +1,10 @@
-import socket
+import netifaces as ni
 
-# Get the current IP address
 def get_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        s.connect(('https://example.com', 1))
-        ip = s.getsockname()[0]
-    except Exception:
-        ip = '127.0.0.1'
-    finally:
-        s.close()
+        ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
+    except KeyError:
+        ip = 'No IP found'
     return ip
+
+print(f"IP Address: {get_ip()}")
