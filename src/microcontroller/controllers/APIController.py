@@ -1,4 +1,3 @@
-# controllers/APIController.py
 import requests
 from config.settings import SERVER_HOST, DEBUG
 from lib.logs import log_info, log_error

@@ -1,4 +1,3 @@
-# controllers/RelayController.py
 import RPi.GPIO as GPIO
 from config.settings import RELAY_PINS
 from lib.logs import log_info

@@ -1,6 +1,5 @@
-# core/setup.py
 import RPi.GPIO as GPIO
-from config.settings import RELAY_PINS, PIR_PIN
+from config.settings import RELAY_PINS, PIR_PIN, LDR_PIN
 
 def setup_gpio():
     GPIO.setmode(GPIO.BCM)
@@ -12,5 +11,8 @@ def setup_gpio():
     
     # Set up PIR pin
     GPIO.setup(PIR_PIN, GPIO.IN)
+
+    # Set LDR pin
+    GPIO.setup(LDR_PIN, GPIO.IN)
 
     print("GPIO setup complete.")
