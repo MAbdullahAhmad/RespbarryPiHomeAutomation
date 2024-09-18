@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { make_url } from '../config';
+import toastr from 'toastr';
+import { useNavigate } from 'react-router-dom';
+
 
 // Function to get the cookie value by name
 const getCookie = (name) => {
@@ -12,12 +15,13 @@ const getCookie = (name) => {
 
 const Panel = () => {
     const [devices, setDevices] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchDevices = async () => {
             try {
                 const accessToken = getCookie('access_token');
-                console.log("token",accessToken) // Extract the access token from cookie
+                console.log("token", accessToken);
                 if (!accessToken) {
                     throw new Error('No access token found. Please log in again.');
                 }
@@ -31,9 +35,8 @@ const Panel = () => {
             } catch (error) {
                 console.error('Error fetching devices:', error);
                 if (error.message.includes('No access token')) {
-                    alert('Authentication error. Please log in again.');
-                    // Optionally, redirect the user to the login page
-                    // window.location.href = '/login';
+                    toastr.error('Authentication error. Please log in again.');
+                    navigate('/')
                 }
             }
         };
@@ -48,7 +51,7 @@ const Panel = () => {
                 throw new Error('No access token found. Please log in again.');
             }
 
-            await axios.post(make_url('/set_device'), {
+            const response = await axios.post(make_url('/set_device'), {
                 device_label: deviceLabel,
                 mode_label: modeLabel
             }, {
@@ -56,9 +59,20 @@ const Panel = () => {
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-            alert('Mode changed successfully');
+
+            if (response.status === 200) {
+                toastr.success('Mode changed successfully');
+
+                setDevices((prevDevices) => 
+                    prevDevices.map((device) => 
+                        device.label === deviceLabel
+                        ? { ...device, status: modeLabel }
+                        : device
+                    )
+                );
+            }
         } catch (error) {
-            alert('Failed to change mode');
+            toastr.error('Failed to change mode');
             console.error('Error changing mode:', error);
         }
     };
