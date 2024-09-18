@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from routes.routes import init_routes
 from config.database import db
 
 # Initialize the Flask app
 app = Flask(__name__)
+
+CORS(app) 
 
 # Configure the SQLite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pi_home_automation.db'
