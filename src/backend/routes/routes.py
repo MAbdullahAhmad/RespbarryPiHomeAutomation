@@ -19,7 +19,7 @@ def init_routes(app):
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             access_token = create_access_token(identity={'username': user.username, 'id': user.id})
-            resp = make_response(jsonify({'message': 'Login successful'}))
+            resp = make_response(jsonify({'message': 'Login successful', 'access_token': access_token}))
             resp.set_cookie('access_token', access_token)
             return resp
         else:
