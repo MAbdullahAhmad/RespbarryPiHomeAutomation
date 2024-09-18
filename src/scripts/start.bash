@@ -9,7 +9,7 @@ nohup python3 server.py > backend.log 2>&1 &
 
 # Start the frontend server
 cd ../frontend/
-nohup npm start > frontend.log 2>&1 &
+nohup npm run deploy > frontend.log 2>&1 &
 
 # Start the microcontroller server
 cd ../microcontrollers/

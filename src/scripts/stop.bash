@@ -4,7 +4,7 @@
 pkill -f "python3 server.py"
 
 # Stop frontend server
-pkill -f "npm start"
+pkill -f "npm run deploy"
 
 # Stop microcontroller server
 pkill -f "python3 main.py"
