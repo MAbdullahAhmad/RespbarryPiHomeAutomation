@@ -1,7 +1,7 @@
 import time
 import RPi.GPIO as GPIO
 from config.settings import PIR_PIN, DETECTION_COUNT_THRESHOLD, DETECTION_ON_WAIT
-from controllers.LogsController import log_info
+from lib.logs import log_info
 
 motion_detected = 0  # Global motion detection state
 current_count = 0    # To keep track of current detection counts

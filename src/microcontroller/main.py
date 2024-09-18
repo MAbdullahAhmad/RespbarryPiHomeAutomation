@@ -2,7 +2,7 @@
 import time
 from core.setup import setup_gpio
 from core.loop import run_loop
-from controllers.LogsController import log_info
+from lib.logs import log_info
 
 def main():
     setup_gpio()

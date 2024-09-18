@@ -1,7 +1,7 @@
 # controllers/RelayController.py
 import RPi.GPIO as GPIO
 from config.settings import RELAY_PINS
-from controllers.LogsController import log_info
+from lib.logs import log_info
 
 class RelayController:
     def turn_on(self, device):

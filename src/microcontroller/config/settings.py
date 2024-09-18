@@ -8,7 +8,7 @@ RELAY_PINS = {
 }
 
 # Server configuration
-SERVER_HOST = 'http://your-flask-server/sync'
+SERVER_HOST = 'http://127.0.0.1:8000/sync'
 
 # Detection constants
 DETECTION_COUNT_THRESHOLD = 3
