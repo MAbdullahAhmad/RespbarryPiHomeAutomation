@@ -4,7 +4,5 @@ def get_ip():
     try:
         ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
     except KeyError:
-        ip = 'No IP found'
+        ip = '127.0.0.1' # fallback
     return ip
-
-print(f"IP Address: {get_ip()}")
