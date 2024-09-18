@@ -1,13 +1,13 @@
 from flask import request, jsonify, make_response
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from controllers.device_controller import get_device_status, get_device_modes, update_device_status
+from controllers.device_controller import get_device_modes, update_device_status
 from models.user_model import User
 
 def init_routes(app):
     
     @app.route('/sync', methods=['GET'])
     def sync_devices():
-        devices_data = get_device_status()
+        devices_data = get_device_modes()
         return jsonify(devices_data)
 
     @app.route('/login', methods=['POST'])

@@ -5,21 +5,6 @@ from models.mode_change_history_model import ModeChangeHistory
 from config.database import db
 from datetime import datetime
 
-def get_device_status():
-    DEFAULT_MODE_LABEL = 'off'
-
-    devices = Device.query.all()
-    data = []
-    for device in devices:
-        status = DeviceStatus.query.filter_by(device_id=device.id).first()
-        mode_label = DeviceModeOption.query.filter_by(id=status.mode_id).first().label if status else DEFAULT_MODE_LABEL
-        device_data = {
-            'label': device.label,
-            'status': mode_label,
-        }
-        data.append(device_data)
-    return data
-
 def get_device_modes():
     DEFAULT_MODE_LABEL = 'off'
 
