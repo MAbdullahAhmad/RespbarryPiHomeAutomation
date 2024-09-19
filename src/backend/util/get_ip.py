@@ -6,7 +6,7 @@ from scapy.all import ARP, Ether, srp
 def get_ip():
     try:
         ip = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
-    except KeyError:
+    except ValueError:
         try:
             ip = ni.ifaddresses('wlp2s0')[ni.AF_INET][0]['addr']
         except:
